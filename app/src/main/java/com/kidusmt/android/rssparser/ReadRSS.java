@@ -45,11 +45,11 @@ public class ReadRSS extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
         progressDialog.dismiss();
         MyAdapter adapter = new MyAdapter(context, feedItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
-        super.onPostExecute(aVoid);
     }
 
     public ReadRSS(Context context, RecyclerView recyclerView){
