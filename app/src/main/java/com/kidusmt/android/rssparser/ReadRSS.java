@@ -99,8 +99,8 @@ public class ReadRSS extends AsyncTask<Void, Void, Void> {
 //                    Log.i("itemLink:",item.getLink());
 //                    Log.i("itemDescription:",item.getDescription().toString());
 //                    Log.i("itemPubDate:",item.getPubDate().toString());
-                    Log.i("ïtemThumbnail:",item.getThumbnail());
-                    Log.i(":","");
+                    //Log.i("ïtemThumbnail:",item.getThumbnail());
+                    //Log.i(":","");
                 }
             }
 

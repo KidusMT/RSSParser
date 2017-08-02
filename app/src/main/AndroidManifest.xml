@@ -17,6 +17,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data android:name="com.inthecheesefactory.lab.glidepicasso.GlideConfiguration"
+                android:value="GlideModule"/>
         </activity>
     </application>
 
