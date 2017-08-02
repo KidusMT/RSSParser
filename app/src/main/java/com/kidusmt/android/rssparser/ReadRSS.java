@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.provider.DocumentsContract;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import org.w3c.dom.Document;
@@ -32,9 +34,27 @@ public class ReadRSS extends AsyncTask<Void, Void, Void> {
     ProgressDialog progressDialog;
     String address = "http://feeds.bbci.co.uk/news/world/rss.xml";
     URL url;
+    ArrayList<FeedItem> feedItems;
+    RecyclerView recyclerView;
 
-    public ReadRSS(Context context){
+    @Override
+    protected void onPreExecute() {
+        progressDialog.show();
+        super.onPreExecute();
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        progressDialog.dismiss();
+        MyAdapter adapter = new MyAdapter(context, feedItems);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
+        super.onPostExecute(aVoid);
+    }
+
+    public ReadRSS(Context context, RecyclerView recyclerView){
         this.context = context;
+        this.recyclerView = recyclerView;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Loading...");
     }
@@ -48,7 +68,7 @@ public class ReadRSS extends AsyncTask<Void, Void, Void> {
 
     private void ProcessXML(Document document) {
         if(document != null){
-            ArrayList<FeedItem> feedItems = new ArrayList<>();
+            feedItems = new ArrayList<>();
             Element root = document.getDocumentElement();
             Node channel = root.getChildNodes().item(1);
             NodeList items = channel.getChildNodes();
@@ -86,8 +106,6 @@ public class ReadRSS extends AsyncTask<Void, Void, Void> {
 
         }
     }
-
-
 
     public Document GetData(){
         try {
